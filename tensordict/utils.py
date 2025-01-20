@@ -8,10 +8,13 @@ import collections
 import concurrent.futures
 import inspect
 import logging
+
 import math
 import os
+
 import sys
 import time
+
 import warnings
 from collections import defaultdict, OrderedDict
 from collections.abc import KeysView
@@ -36,7 +39,13 @@ from typing import (
 
 import numpy as np
 import torch
-from functorch import dim as ftdim
+
+try:
+    from functorch import dim as ftdim
+
+    _has_funcdim = True
+except ImportError:
+    _has_funcdim = False
 from packaging.version import parse
 from tensordict._contextlib import _DecoratorContextManager
 from tensordict._tensordict import (  # noqa: F401
@@ -45,6 +54,7 @@ from tensordict._tensordict import (  # noqa: F401
     unravel_key_list,
     unravel_keys,
 )
+
 from torch import Tensor
 from torch._C import _disabled_torch_function_impl
 from torch.nn.parameter import (
